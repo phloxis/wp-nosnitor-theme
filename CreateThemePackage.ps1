@@ -51,7 +51,7 @@ if (Test-Path $OutputDir) {
 }
 
 ### Copy content
-New-Item -ItemType Directory -Path $OutputDir
+New-Item -ItemType Directory -Path $OutputDir -ErrorAction SilentlyContinue
 $buildOutput = "$OutputDir/$($ThemeName.ToLower())/"
 Copy-Item -Path $ThemeDir -Recurse -Destination $buildOutput -Container
 

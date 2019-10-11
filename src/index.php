@@ -1,8 +1,11 @@
 <?php
 /**
- * The main template file
+ * The main template file for the Nosnitor Theme
+ 
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package Nosnitor
+ * @since 1.0.0
  */
 
 get_header();
@@ -12,23 +15,23 @@ get_header();
 		<main id="main" class="site-main">
 
 		<?php
-//		if ( have_posts() ) {
+		if ( have_posts() ) {
 
-//			// Load posts loop.
-//			while ( have_posts() ) {
-//				the_post();
-//				get_template_part( 'template-parts/content/content' );
-//			}
+			// Load posts loop.
+			while ( have_posts() ) {
+				the_post();
+				get_template_part( 'template-parts/content/content' );
+			}
 
-//			// Previous/next page navigation.
-//			twentynineteen_the_posts_navigation();
+			// Previous/next page navigation.
+			nosnitor_the_posts_navigation();
 
-//		} else {
+		} else {
 
-//			// If no content, include the "No posts found" template.
-//			get_template_part( 'template-parts/content/content', 'none' );
+			// If no content, include the "No posts found" template.
+			get_template_part( 'template-parts/content/content', 'none' );
 
-//		}
+		}
 		?>
 
 		</main><!-- .site-main -->
