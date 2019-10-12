@@ -1,8 +1,8 @@
 <?php
 /**
- * The main template file for the Nosnitor Theme
- 
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * The main template file for the Nosnitor theme.
+ *   
+ * @link https://www.phloxis.com/wp-themes/nosnitor/
  *
  * @package Nosnitor
  * @since 1.0.0

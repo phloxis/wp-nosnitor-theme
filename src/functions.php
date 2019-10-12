@@ -303,6 +303,15 @@ require get_template_directory() . '/classes/class-nosnitor-svg-icons.php';
 require get_template_directory() . '/classes/class-nosnitor-walker-comment.php';
 
 /**
+ * Include the TGM_Plugin_Activation class.
+ */
+require_once get_template_directory() . '/classes/class-tgm-plugin-activation.php';
+require_once get_template_directory() . '/inc/plugin-activation.php';
+
+add_action( 'tgmpa_register', 'nosnitor_register_required_plugins' );
+
+
+/**
  * Enhance the theme by hooking into WordPress.
  */
 require get_template_directory() . '/inc/template-functions.php';
