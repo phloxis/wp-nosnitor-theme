@@ -21,19 +21,19 @@ do {
 	Write-Output "Waiting for cli to finish..."
 	Start-Sleep 1
 }
+
+# wait until cli container stops
 until (((docker ps) -like "*nosnitortheme_cli_*").Length -eq 0)
 $outlog = (docker logs nosnitortheme_cli_1)
 
+# verify theme installed
 if (($outlog -like "Success: Switched to 'Nosnitor' theme.").Length -eq 0) {
 	Throw "It does not appear the Nosnitor theme was successfully installed."
 }
 
 # Verify site is running
-$url = 'http://localhost:8080'
-$req = [system.Net.WebRequest]::Create($url)
-
 try {
-    $res = $req.GetResponse()
+    $res = ([system.Net.WebRequest]::Create('http://localhost:8080')).GetResponse()
 } 
 catch [System.Net.WebException] {
     $res = $_.Exception.Response
