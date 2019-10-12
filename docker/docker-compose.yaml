@@ -46,6 +46,7 @@ services:
       - wordpress
       - db
     environment:
+      WP_CLI_CONFIG_PATH: /wp-cli.yml
       WPCORE_URL: http://localhost:8080
       WPCORE_TITLE: Nosnitor theme demo
       WPCORE_ADMINUSER: admin

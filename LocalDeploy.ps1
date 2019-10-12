@@ -18,7 +18,7 @@ Pop-Location
 # display logs
 Write-Output "`r`n"
 do {
-	Write-Output "Waiting for cli to finish..."
+	Write-Output "Waiting for wp-cli to finish..."
 	Start-Sleep 1
 }
 
