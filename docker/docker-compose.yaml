@@ -3,8 +3,9 @@ version: '3.1'
 services:
 
   wordpress:
-    build: wp
-    #image: wordpress
+    build:
+      context: ..
+      dockerfile: docker/wp/Dockerfile
     depends_on: 
       - db
     restart: always
@@ -20,8 +21,6 @@ services:
         define( 'FS_METHOD', 'direct' );
     volumes:
       - wordpress:/var/www/html
-      - ../src:/var/www/html/wp-content/themes/nosnitor
-      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
 
   db:
     image: mysql:5.7
@@ -40,7 +39,9 @@ services:
       - db:/var/lib/mysql
   
   cli:
-    build: wp-cli
+    build:
+      context: ..
+      dockerfile: docker/wp-cli/Dockerfile
     depends_on:
       - wordpress
       - db
@@ -52,7 +53,6 @@ services:
       WPCORE_ADMINEMAIL: wp-admin@phloxis.com
     volumes:
       - wordpress:/var/www/html
-      - ../src:/var/www/html/wp-content/themes/nosnitor
 
 volumes:
   wordpress:
