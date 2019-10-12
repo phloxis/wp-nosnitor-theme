@@ -52,5 +52,5 @@ if (Test-Path $destinationPath) {
   }
 }
 
-sz a $destinationPath $ThemeDir -mx=9 -xr!docker
+sz a $destinationPath $ThemeDir -mx=9
 sz rn $destinationPath src\ nosnitor\
