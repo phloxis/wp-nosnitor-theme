@@ -5,7 +5,7 @@ param(
 
 # spin up docker container
 Push-Location docker
-$env:COMPOSE_PROJECT_NAME="nosnitortheme"
+#$env:COMPOSE_PROJECT_NAME="nosnitortheme"
 
 ## remove existing containers and volumes
 docker-compose down -v

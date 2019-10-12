@@ -20,7 +20,6 @@ services:
         define( 'FS_METHOD', 'direct' );
     volumes:
       - wordpress:/var/www/html
-      - ./wp/configure-wordpress.sh:/root/configure-wordpress.sh
       - ../src:/var/www/html/wp-content/themes/nosnitor
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
 
@@ -45,9 +44,14 @@ services:
     depends_on:
       - wordpress
       - db
+    environment:
+      WPCORE_URL: http://localhost:8080
+      WPCORE_TITLE: Nosnitor theme demo
+      WPCORE_ADMINUSER: admin
+      WPCORE_ADMINPASS: pass
+      WPCORE_ADMINEMAIL: wp-admin@phloxis.com
     volumes:
       - wordpress:/var/www/html
-      - ./wp-cli/configure-wordpress.sh:/root/configure-wordpress.sh
       - ../src:/var/www/html/wp-content/themes/nosnitor
 
 volumes:
