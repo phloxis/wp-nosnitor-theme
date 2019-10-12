@@ -17,19 +17,22 @@ Pop-Location
 
 # display logs
 Write-Output "`r`n"
+
+# wait until cli container stops
 do {
 	Write-Output "Waiting for wp-cli to finish..."
 	Start-Sleep 1
 }
-
-# wait until cli container stops
 until (((docker ps) -like "*nosnitortheme_cli_*").Length -eq 0)
+
 $outlog = (docker logs nosnitortheme_cli_1)
 
 # verify theme installed
 if (($outlog -like "Success: Switched to 'Nosnitor' theme.").Length -eq 0) {
 	Throw "It does not appear the Nosnitor theme was successfully installed."
 }
+
+Write-Verbose "wp-cli log:`r`n$($outlog | Out-String)"
 
 # Verify site is running
 try {
@@ -40,7 +43,7 @@ catch [System.Net.WebException] {
 }
 
 if ([int]$res.StatusCode -eq 200) {
-	Write-Host "WordPress is up, with Nosnitor theme. http://localhost:8080"
+	Write-Host "`r`n`r`nWordPress is up, with Nosnitor theme at URL:`r`nhttp://localhost:8080"
 } else {
 	Throw "It does not appear that WordPress is running. $([int]$res.StatusCode):$($res.StatusCode)"
 }
