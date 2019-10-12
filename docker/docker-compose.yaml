@@ -1,0 +1,55 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    build: wp
+    #image: wordpress
+    depends_on: 
+      - db
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: testuser
+      WORDPRESS_DB_PASSWORD: testpass
+      WORDPRESS_DB_NAME: testdb
+      WORDPRESS_CONFIG_EXTRA:
+        define( 'WP_DEBUG', true );
+        define( 'FS_METHOD', 'direct' );
+    volumes:
+      - wordpress:/var/www/html
+      - ./wp/configure-wordpress.sh:/root/configure-wordpress.sh
+      - ../src:/var/www/html/wp-content/themes/nosnitor
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+
+  db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+      - 33060:33060
+      - 33061:33061
+      - 33062:33062
+    environment:
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+  
+  cli:
+    build: wp-cli
+    depends_on:
+      - wordpress
+      - db
+    volumes:
+      - wordpress:/var/www/html
+      - ./wp-cli/configure-wordpress.sh:/root/configure-wordpress.sh
+      - ../src:/var/www/html/wp-content/themes/nosnitor
+
+volumes:
+  wordpress:
+  db:
