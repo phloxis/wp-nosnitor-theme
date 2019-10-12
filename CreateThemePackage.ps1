@@ -11,7 +11,6 @@ param(
 	[string] $ThemeName = 'Nosnitor',
 	[string] $ThemeDir = "$PSScriptRoot\src",
 	[string] $StyleCss = "$ThemeDir/style.css",
-	[string] $OutputDir = "$PSScriptRoot\_Output",
 	[switch] $Force
 )
 
@@ -22,7 +21,6 @@ $ErrorActionPreference = "Stop"
 Write-Verbose "ThemeName : $ThemeName"
 Write-Verbose "ThemeDir  : $ThemeDir"
 Write-Verbose "StyleCss  : $StyleCss"
-Write-Verbose "OutputDir : $OutputDir"
 Write-Verbose "Force     : $Force"
 
 
@@ -43,20 +41,7 @@ if (!($versionIsMatch -eq $TRUE)) {
 $version = $Matches[1]
 Write-Verbose "Version   : $version"
 
-## Create build output
-### Remove output if exist
-if (Test-Path $OutputDir) {
-	Get-ChildItem -Path $OutputDir -Force -Recurse -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
-	Remove-Item $OutputDir -Force
-}
-
-### Copy content
-New-Item -ItemType Directory -Path $OutputDir -ErrorAction SilentlyContinue
-$buildOutput = "$OutputDir/$($ThemeName.ToLower())/"
-Copy-Item -Path $ThemeDir -Recurse -Destination $buildOutput -Container
-
 ### Create ZIP file
-$rootPath = "$buildOutput"
 $destinationPath = "$PSScriptRoot/$ThemeName.$version.zip"
 
 if (Test-Path $destinationPath) {
@@ -67,5 +52,5 @@ if (Test-Path $destinationPath) {
   }
 }
 
-sz a -mx=9 $destinationPath $rootPath
-
+sz a $destinationPath $ThemeDir -mx=9 -xr!docker
+sz rn $destinationPath src\ nosnitor\
