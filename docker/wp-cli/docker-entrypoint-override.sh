@@ -9,5 +9,8 @@ wp core install --url=$WPCORE_URL --title="$WPCORE_TITLE" --admin_user="$WPCORE_
 # enable nosnitor theme
 wp theme activate nosnitor --allow-root
 
+# configure permalinks
+wp rewrite structure '/%year%/%monthnum%/%day%/%postname%/' --allow-root
+
 # load default entrypoint
 #docker-entrypoint.sh wp shell

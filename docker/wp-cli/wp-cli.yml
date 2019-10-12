@@ -1,0 +1,3 @@
+user: admin
+apache_modules:
+  - mod_rewrite
