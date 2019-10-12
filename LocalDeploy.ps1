@@ -31,7 +31,7 @@ $outlog = (docker logs nosnitortheme_cli_1)
 if (($outlog -like "Success: Switched to 'Nosnitor' theme.").Length -eq 0) {
 	Throw "It does not appear the Nosnitor theme was successfully installed."
 }
-
+Write-Host "wp-cli finished.`r`n"
 Write-Verbose "wp-cli log:`r`n$($outlog | Out-String)"
 
 # Verify site is running
@@ -43,7 +43,7 @@ catch [System.Net.WebException] {
 }
 
 if ([int]$res.StatusCode -eq 200) {
-	Write-Host "`r`n`r`nWordPress is up, with Nosnitor theme at URL:`r`nhttp://localhost:8080"
+	Write-Host "WordPress is up, with Nosnitor theme at URL:`r`nhttp://localhost:8080"
 } else {
 	Throw "It does not appear that WordPress is running. $([int]$res.StatusCode):$($res.StatusCode)"
 }
